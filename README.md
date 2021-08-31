@@ -1,5 +1,5 @@
 # enable-cors-acs-demo
-This project is a demo on how to setup CORS in dockerized environment. Using this project we are specifically trying to setup 'cors.allowOrigin' to '*' as OUTOFTHEBOX settings for ACS6.x/ACS7.x doesn't work and seems broken at repo layer when '*' is set as value for 'cors.allowOrigin'.
+This project is a demo on how to setup CORS in dockerized environment. Using this project we are specifically trying to setup ```cors.allowOrigin``` to ```*``` as OUTOFTHEBOX settings for ACS6.x/ACS7.x doesn't work and seems broken at repo layer when ```*``` is set as value for ```cors.allowOrigin```.
 
 
 ### Steps at high level which will be implemented with help of docker-compose.yml and DockerFile
@@ -19,7 +19,56 @@ This project is a demo on how to setup CORS in dockerized environment. Using thi
 - Update the web.xml with CORS filters as suggested here: https://docs.alfresco.com/content-services/6.1/config/repository/#cross-origin-resource-sharing-cors-filters
 
 
-- Set the value of 'cors.allowOrigin' to '*'
+- Set the value of ```cors.allowOrigin``` to ```*```
+
+```xml
+   <filter>
+     <filter-name>CORS</filter-name>
+     <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+     <init-param>
+         <param-name>cors.allowGenericHttpRequests</param-name>
+         <param-value>true</param-value>
+     </init-param>
+     <init-param>
+         <param-name>cors.allowOrigin</param-name>
+         <param-value>*</param-value>
+     </init-param>
+     <init-param>
+         <param-name>cors.allowSubdomains</param-name>
+         <param-value>true</param-value>
+     </init-param>
+     <init-param>
+         <param-name>cors.supportedMethods</param-name>
+         <param-value>GET, HEAD, POST, PUT, DELETE, OPTIONS</param-value>
+     </init-param>
+     <init-param>
+         <param-name>cors.supportedHeaders</param-name>
+         <param-value>origin, authorization, x-file-size, x-file-name, content-type, accept, x-file-type, range</param-value>
+     </init-param>
+     <init-param>
+         <param-name>cors.exposedHeaders</param-name>
+         <param-value>Accept-Ranges, Content-Encoding, Content-Length, Content-Range</param-value>
+     </init-param>
+     <init-param>
+         <param-name>cors.supportsCredentials</param-name>
+         <param-value>true</param-value>
+     </init-param>
+     <init-param>
+          <param-name>cors.maxAge</param-name>
+          <param-value>3600</param-value>
+     </init-param>
+   </filter>
+
+  <filter-mapping>
+     <filter-name>CORS</filter-name>
+     <url-pattern>/api/*</url-pattern>
+     <url-pattern>/service/*</url-pattern>
+     <url-pattern>/s/*</url-pattern>
+     <url-pattern>/cmisbrowser/*</url-pattern>
+     <url-pattern>/definitions/*</url-pattern>
+ </filter-mapping>
+
+  ```
 
 
 - Copy the web.xml to $TOMCAT_DIR/webapps/alfresco/WEB-INF/web.xml via DockerFile, alternatively you can also use "sed" tool to update the web.xml file within the image without downloading a local copy. 
@@ -29,7 +78,8 @@ This project is a demo on how to setup CORS in dockerized environment. Using thi
 
 - Create a file named 'index.html' with following content
 
-```
+
+```html
 <!DOCTYPE html>
 <html>
 
@@ -47,7 +97,7 @@ This project is a demo on how to setup CORS in dockerized environment. Using thi
 
 - Create a file named 'cors-test.js' with following content
 
-```
+```js
 function main()
 {
     console.log("main invoked...");
@@ -55,7 +105,7 @@ function main()
     $.ajax
     ({
         dataType: "xml",
-        url: "http://localhost:7080/alfresco/s/api/login?u=admin&pw=admin",
+        url: "http://localhost:8080/alfresco/s/api/login?u=admin&pw=admin",
         success: function(data)
         {
             console.log("log response on success");
