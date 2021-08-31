@@ -120,6 +120,7 @@
      <init-param>
          <param-name>cors.allowOrigin</param-name>
          <param-value>*</param-value>
+		 <!--<param-value>http://localhost:8080</param-value>-->
      </init-param>
      <init-param>
          <param-name>cors.allowSubdomains</param-name>
