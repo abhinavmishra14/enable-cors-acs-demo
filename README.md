@@ -1,5 +1,6 @@
 # enable-cors-acs-demo
-This project is a demo on how to setup CORS in dockerized environment. Using this project we are specifically trying to setup ```cors.allowOrigin``` to ```*``` as OUTOFTHEBOX settings for ACS6.x/ACS7.x doesn't work and seems broken at repo layer when ```*``` is set as value for ```cors.allowOrigin```.
+This project is a demo on how to setup CORS in dockerized environment. Using this project we are specifically trying to setup ```cors.allowOrigin``` to ```*``` as OUTOFTHEBOX settings for [ACS6.x](https://docs.alfresco.com/content-services/6.1/config/repository/#cross-origin-resource-sharing-cors-filters)
+/[ACS7.x](https://docs.alfresco.com/content-services/latest/config/repository/#cors-configuration) doesn't work and seems broken at repo layer when ```*``` is set as value for ```cors.allowOrigin```.
 
 
 ### Steps at high level which will be implemented with help of docker-compose.yml and DockerFile
