@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context crossContext="true">
+  <!-- By default value for resource caching is 10240 kbytes, even when not added to $ALF_HOME/tomcat/conf/context.xml.
+	so either increase it until you stop seeing the warning or disable it completely. 
+    If we have application specific context files then place the configuration in appropriate app specific context file. 
+	Such as this file 'share.xml'
+  -->
+  <!-- <Resources cachingAllowed="false"> -->
+  <!-- <Resources cachingAllowed="true" cacheMaxSize="100000"> -->
+  <Resources cachingAllowed="true" cacheMaxSize="100000">
+    <PostResources base="${catalina.base}/modules/share"
+                   className="org.apache.catalina.webresources.DirResourceSet"
+                   webAppMount="/WEB-INF/lib"/>
+  </Resources>
+</Context>
