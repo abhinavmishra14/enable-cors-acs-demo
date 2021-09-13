@@ -18,6 +18,11 @@ COPY Dockerfile libs/*.jar $TOMCAT_DIR/webapps/alfresco/WEB-INF/lib/
 COPY Dockerfile add-ons/*.amp $TOMCAT_DIR/amps/
 RUN java -jar $TOMCAT_DIR/alfresco-mmt/alfresco-mmt*.jar install \
               $TOMCAT_DIR/amps $TOMCAT_DIR/webapps/alfresco -directory -nobackup -force
+			  
+
+# In base image it tries to write logs at root directory which requires 'root' user access while alfresco is running as 'alfresco' user hence can't write the logs and you would notice access denied error in console logs for this reason.
+# To overcome this issue, we need to change the default log4j.properties located at: "/usr/local/tomcat/webapps/alfresco/WEB-INF/classes/log4j.properties"
+RUN sed -i "s|log4j.appender.File.File\=alfresco.log|log4j.appender.File.File\=logs/alfresco.log |g" $TOMCAT_DIR/webapps/alfresco/WEB-INF/classes/log4j.properties ;
 			 
 # Create dirs for simple modules
 RUN bash -c 'mkdir -pv $TOMCAT_DIR/modules/platform'

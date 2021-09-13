@@ -15,6 +15,9 @@ COPY Dockerfile add-ons/*.amp $TOMCAT_DIR/amps_share/
 RUN java -jar $TOMCAT_DIR/alfresco-mmt/alfresco-mmt*.jar install \
               $TOMCAT_DIR/amps_share $TOMCAT_DIR/webapps/share -directory -nobackup -force
 			  
+# In base image it tries to write logs at root directory which requires 'root' user access.
+RUN sed -i "s|log4j.appender.File.File\=share.log|log4j.appender.File.File\=logs/share.log |g" $TOMCAT_DIR/webapps/share/WEB-INF/classes/log4j.properties ;
+
 # Create dirs for simple modules
 RUN bash -c 'mkdir -pv $TOMCAT_DIR/modules/share'
 
