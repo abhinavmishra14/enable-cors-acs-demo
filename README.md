@@ -5,7 +5,7 @@ This project is a demo on how to setup CORS in dockerized environment. Using thi
 
 ### Steps at high level which will be implemented with help of docker-compose.yml and DockerFile
 
-- Downloaded these specific two jar files:
+- Downloaded these jar files (exact specific versions as given below):
  
    - https://repo1.maven.org/maven2/com/thetransactioncompany/cors-filter/2.5/cors-filter-2.5.jar
    - https://repo1.maven.org/maven2/com/thetransactioncompany/java-property-utils/1.9.1/java-property-utils-1.9.1.jar

@@ -1,4 +1,4 @@
-# Demonstrate changing acs, share and proxy ports to 7080, postgres port to 5555, solr6 port to 9999
+# Demonstrates CORS Enablement via docker-compose.yml and DockerFile
 # This docker-compose file will spin up an ACS cluster on a local host or on a server and it requires a minimum of 12GB Memory to distribute among containers.
 # Limit container memory and assign X percentage to JVM.  There are couple of ways to allocate JVM Memory for ACS Containers
 # For example: 'JAVA_OPTS: "$JAVA_OPTS -XX:+PrintFlagsFinal -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"'
